@@ -8,26 +8,28 @@ import {
   Button,
   Card,
   ListGroupItem,
+  Alert
 } from "react-bootstrap";
 import Rating from "../components/Rating";
-
-import axios from "axios";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 
 import { useParams } from "react-router";
 
+import { useDispatch, useSelector } from "react-redux";
+import { listProductDetails } from "../actions/productActions";
+
 function ProductScreen() {
+
+  const dispatch=useDispatch();
   const { id } = useParams();
 
-  const [product, setProduct] = useState([]);
-
+  const productDetails = useSelector(state => state.productDetails);
+  const {loading, error, product} = productDetails;
   useEffect(() => {
-    async function fetchProducts() {
-      const { data } = await axios.get(`http://127.0.0.1:8000/api/products/${id}`);
-      setProduct(data);
-    }
-
-    fetchProducts();
+    dispatch(listProductDetails(id))
   }, [id]);
+
 
 
   return (
@@ -35,7 +37,9 @@ function ProductScreen() {
       <Link to="/" className="btn btn-light my-3">
         Go Back
       </Link>
-      <Row>
+      {loading&&error?
+         <Alert variant ='danger'>{error}</Alert>
+        : (<Row>
         <Col md={6} sm={12}>
           <Image src={product.image} alt={product.name} />
         </Col>
@@ -70,20 +74,33 @@ function ProductScreen() {
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
-              <Row>
+                <Row>
                   <Col>Status:</Col>
                   <Col>
-                    <strong>{product.countInStock > 0? 'In Stock': 'Out of Stock'}</strong>
+                    <strong>
+                      {product.countInStock > 0 ? "In Stock" : "Out of Stock"}
+                    </strong>
                   </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
-                  <Button className='btn-block' disabled={product.countInStock==0} type="button" >Add to Cart</Button>
+                <Button
+                  className="btn-block"
+                  disabled={product.countInStock == 0}
+                  type="button"
+                >
+                  Add to Cart
+                </Button>
               </ListGroup.Item>
             </ListGroup>
           </Card>
         </Col>
-      </Row>
+      </Row>)
+
+      }
+
+
+      
     </div>
   );
 }
