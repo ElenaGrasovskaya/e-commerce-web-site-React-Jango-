@@ -17,6 +17,7 @@ import { useParams } from "react-router";
 
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../actions/productActions";
+import { addToCart } from "../actions/cartActions";
 
 function ProductScreen() {
   const [qty, setQty] = useState(1);
@@ -30,9 +31,10 @@ function ProductScreen() {
     dispatch(listProductDetails(id));
   }, [id]);
 
-  const addToCartHandler = (id) => {
-    console.log("Add to cart");
-    navigate(`/cart/${id}?qty=${qty}`, { replace: false });
+  const addToCartHandler = () => {
+    
+    dispatch(addToCart(id, qty));
+    navigate(`/cart/${id}?qty=${qty}`);
   };
 
   return (
@@ -113,7 +115,7 @@ function ProductScreen() {
                 )}
                 <ListGroup.Item>
                   <Button
-                    onClick={addToCartHandler(id)}
+                    onClick={addToCartHandler}
                     className="btn-block"
                     disabled={product.countInStock == 0}
                     type="button"
