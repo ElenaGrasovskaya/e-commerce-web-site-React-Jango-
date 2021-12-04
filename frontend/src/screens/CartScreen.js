@@ -32,9 +32,9 @@ function CartScreen({ history }) {
 
   useEffect(() => {
     if (productId) {
-      dispatch(addToCart(productId, qty));
+      dispatch(addToCart(productId, qty)); 
     }
-  }, [dispatch, productId, qty]);
+  }, [dispatch, productId, qty]); 
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));

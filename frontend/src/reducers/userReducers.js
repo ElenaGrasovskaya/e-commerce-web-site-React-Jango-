@@ -3,6 +3,10 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
+
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAIL,
 } from "../constants/userConstants";
 
 export const userLoginReducer = (state = { products: [] }, actions) => {
@@ -14,7 +18,26 @@ export const userLoginReducer = (state = { products: [] }, actions) => {
       return { loading: false, products: actions.payload };
 
     case USER_LOGIN_FAIL:
-      return { loading: true, error: actions.payload };
+      return { loading: false, error: actions.payload };
+
+    case USER_LOGOUT:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
+export const userRegisterReducer = (state = { products: [] }, actions) => {
+  switch (actions.type) {
+    case USER_REGISTER_REQUEST:
+      return { loading: true };
+
+    case USER_REGISTER_SUCCESS:
+      return { loading: false, products: actions.payload };
+
+    case USER_REGISTER_FAIL:
+      return { loading: false, error: actions.payload };
 
     case USER_LOGOUT:
       return {};
@@ -36,7 +59,7 @@ export const productDetailsReducer = (
       return { loading: false, product: actions.payload };
 
     case PRODUCT_DETAILS_FAIL:
-      return { loading: true, error: actions.payload };
+      return { loading: false, error: actions.payload };
 
     default:
       return state;
