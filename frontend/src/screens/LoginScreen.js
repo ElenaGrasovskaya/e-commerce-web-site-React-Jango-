@@ -46,7 +46,7 @@ function LoginScreen({ history }) {
       {loading && <Loader />}
 
       <Form onSubmit={submitHandler}>
-        <Form.Group cntrolId="email">
+        <Form.Group cntrolid="email">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
             type="email"
@@ -56,7 +56,7 @@ function LoginScreen({ history }) {
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group cntrolId="password">
+        <Form.Group cntrolid="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"

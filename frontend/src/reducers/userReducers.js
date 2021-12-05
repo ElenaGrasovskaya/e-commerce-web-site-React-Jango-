@@ -7,6 +7,10 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS,
+  USER_DETAILS_FAIL,
 } from "../constants/userConstants";
 
 export const userLoginReducer = (state = { products: [] }, actions) => {
@@ -28,13 +32,13 @@ export const userLoginReducer = (state = { products: [] }, actions) => {
   }
 };
 
-export const userRegisterReducer = (state = { products: [] }, actions) => {
+export const userRegisterReducer = (state = {}, actions) => {
   switch (actions.type) {
     case USER_REGISTER_REQUEST:
       return { loading: true };
 
     case USER_REGISTER_SUCCESS:
-      return { loading: false, products: actions.payload };
+      return { loading: false, userInfo: actions.payload };
 
     case USER_REGISTER_FAIL:
       return { loading: false, error: actions.payload };
@@ -47,21 +51,19 @@ export const userRegisterReducer = (state = { products: [] }, actions) => {
   }
 };
 
-export const productDetailsReducer = (
-  state = { product: { reviews: [] } },
-  actions
-) => {
+export const userDetailsReducer = (state = {user:{}}, actions) => {
   switch (actions.type) {
-    case PRODUCT_DETAILS_REQUEST:
-      return { loading: true, ...state };
+    case USER_DETAILS_REQUEST:
+      return {... state, loading: true };
 
-    case PRODUCT_DETAILS_SUCCESS:
-      return { loading: false, product: actions.payload };
+    case USER_DETAILS_SUCCESS:
+      return { loading: false, user: actions.payload };
 
-    case PRODUCT_DETAILS_FAIL:
+    case USER_DETAILS_FAIL:
       return { loading: false, error: actions.payload };
 
     default:
       return state;
   }
 };
+

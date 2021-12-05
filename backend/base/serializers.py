@@ -16,7 +16,7 @@ class UserSerializer(serializers. ModelSerializer):
     def get__id(self, obj):
         return obj.id
 
-    def get_isAdmin(self, obj):
+    def get_isAdmin(self, obj): 
         return obj.is_staff 
 
     def get_name(self, obj):
