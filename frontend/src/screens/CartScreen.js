@@ -28,6 +28,9 @@ function CartScreen({ history }) {
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   console.log("cartItems", cartItems);
 
   useEffect(() => {
@@ -42,7 +45,10 @@ function CartScreen({ history }) {
   };
 
   const checkoutHandler = () => {
-    navigate('/login?redirect=shipping');
+    if(!userInfo)
+    navigate('/login/');
+    else
+    navigate('/shipping/');
   }
 
   return (

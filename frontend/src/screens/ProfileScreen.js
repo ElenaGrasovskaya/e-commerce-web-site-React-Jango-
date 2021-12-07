@@ -4,8 +4,9 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-import { getUserDetails } from "../actions/userActions";
+import { getUserDetails, updateUserProfile } from "../actions/userActions";
 import { applyMiddleware } from "redux";
+import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 
 function ProfileScreen() {
   const dispatch = useDispatch();
@@ -19,30 +20,42 @@ function ProfileScreen() {
   const [message, setMessage] = useState("");
 
   const userDetails = useSelector((state) => state.userDetails);
-  const { error, loading, user } = userDetails;
+  let { error, loading, user } = userDetails;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+  const { success } = userUpdateProfile;
 
   useEffect(() => {
     if (!userInfo) {
       navigate("/login");
     } else {
-      if (!user || !user.name) {
+      if (!user || !user.name || success||userInfo._id !== user._id) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserDetails("profile"));
       } else {
-        setName(user.name);
-        setEmail(user.email);
+        
+        setName(userInfo.name);
+        setEmail(userInfo.email);
       }
     }
-  }, [userInfo, dispatch, user]);
+  }, [userInfo, dispatch, user, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (password != confirmPassword) {
       setMessage("Passwords do not match");
     } else {
-      alert("updating the user info");
+      dispatch(
+        updateUserProfile({
+          id: user._id,
+          name: name,
+          email: email,
+          password: password,
+        })
+      );
     }
   };
 
@@ -50,9 +63,9 @@ function ProfileScreen() {
     <Row>
       <Col md={4}>
         <h2>User Profile</h2>
-        {message && <Message variant="danger">{message}</Message>}
+        {message && <Message variant="success">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}
-        
+
         {loading && <Loader />}
 
         <Form onSubmit={submitHandler}>
@@ -62,7 +75,7 @@ function ProfileScreen() {
               required
               type="name"
               placeholder="Enter Name"
-              value={email}
+              value={name}
               onChange={(e) => setName(e.target.value)}
             ></Form.Control>
           </Form.Group>
@@ -81,7 +94,6 @@ function ProfileScreen() {
           <Form.Group cntrolid="password">
             <Form.Label>Password</Form.Label>
             <Form.Control
-              
               type="password"
               placeholder="Enter Password"
               value={password}
@@ -92,7 +104,6 @@ function ProfileScreen() {
           <Form.Group cntrolid="passwordConfirm">
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control
-              
               type="confirmPassword"
               placeholder="Confirm Password"
               value={confirmPassword}
