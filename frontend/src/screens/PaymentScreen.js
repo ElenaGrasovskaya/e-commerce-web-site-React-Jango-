@@ -38,16 +38,17 @@ function PaymentScreen() {
               id="paypal"
               name="paymentMethod"
               checked
+              value = "PayPal"
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></Form.Check>
 
             <Form.Check
               className="my-3"
               type="radio"
-              label="Credit Card"
-              id="Credit Card"
+              label="LiqPay"
+              id="LiqPay"
               name="paymentMethod"
-              value = "Credit Card"
+              value = "LiqPay"
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></Form.Check>
           </Col>

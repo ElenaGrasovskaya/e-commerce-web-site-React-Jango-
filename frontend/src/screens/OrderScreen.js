@@ -2,38 +2,86 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { PayPalButton } from "react-paypal-button-v2";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+import LiqPayButton from "../components/LiqPayButton";
 import { useParams } from "react-router";
+import { ORDER_PAY_RESET, ORDER_PAY_SUCCESS } from '../constants/orderConstants'
 
-import { createOrder, getOrderDetails } from "../actions/orderActions";
+import {
+  createOrder,
+  getOrderDetails,
+  payOrder,
+} from "../actions/orderActions";
 
 import { ORDER_CREATE_RESET } from "../constants/orderConstants";
 
 function OrderScreen() {
- 
+  //Aaq_ZW1VOTdBTIFDQ1lRS0JRPsEztlFYlLqfiJ1gQ00qWsn_8LQrybUu16Ml_uS7mbIxiEZaoTPvJqrp
   const { id } = useParams();
   const orderId = id;
+  
   const orderDetails = useSelector((state) => state.orderDetails);
-
   const { order, error, loading } = orderDetails;
+
+  const orderPay = useSelector((state) => state.orderDetails);
+  const { loading: loadingPay, success: successPay } = orderPay;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const [sdkReady, setSdkReady] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState('');
 
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
-
   if (!loading && !error) {
     order.itemsPrice = order.orderItems
       .reduce((acc, item) => acc + item.price * item.qty, 0)
       .toFixed(2);
+   
   }
 
+  const addPayPalScript = () => {
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src =
+      "https://www.paypal.com/sdk/js?client-id=Aaq_ZW1VOTdBTIFDQ1lRS0JRPsEztlFYlLqfiJ1gQ00qWsn_8LQrybUu16Ml_uS7mbIxiEZaoTPvJqrp";
+    script.async = true;
+    script.onload = () => {
+      setSdkReady(true);
+    };
+    document.body.appendChild(script);
+  };
+
   useEffect(() => {
-    if (!order || order._id !== Number(orderId)) {
-      dispatch(getOrderDetails(orderId));
+    if (!userInfo) {
+      dispatch({type: ORDER_PAY_RESET})
+      navigate("/login");
     }
-  }, [order, orderId]);
+    if (!order || successPay || order._id !== Number(orderId)) {
+      
+      dispatch({type:ORDER_PAY_RESET});
+      dispatch(getOrderDetails(orderId));
+    } else if (!order.isPaid) {
+      if (!window.paypal) {
+        addPayPalScript();
+      } else {
+        setSdkReady(true);
+      }
+    }
+  }, [dispatch, order, orderId, successPay, paymentStatus]);
+
+  const successPaymentHandler = (paymentResult) => {
+    if(paymentResult.status === "COMPLETED"){
+      dispatch(payOrder(orderId, paymentResult));
+      setPaymentStatus("COMPLETED");
+    }
+    
+  };
 
   return loading ? (
     <Loader></Loader>
@@ -41,14 +89,19 @@ function OrderScreen() {
     <Message variant="danger">{error}</Message>
   ) : (
     <div>
-        <h1>Order: {order._id}</h1>
+      <h1>Order: {order._id}</h1>
       <Row>
         <Col md={8}>
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>Shipping</h2>
-              <p><strong>Name: </strong> {order.user.name} </p>
-              <p><strong>Name: </strong> <a href={`mailto:${order.user.email}`}>{order.user.email}</a> </p>
+              <p>
+                <strong>Name: </strong> {order.user.name}{" "}
+              </p>
+              <p>
+                <strong>Name: </strong>{" "}
+                <a href={`mailto:${order.user.email}`}>{order.user.email}</a>{" "}
+              </p>
               <p>
                 <strong>Shipping: </strong>
                 {order.shippingAddress.address}, {order.shippingAddress.city},
@@ -57,10 +110,11 @@ function OrderScreen() {
                 {order.shippingAddress.country}
               </p>
               {order.isDelivered ? (
-                  <Message varient="success">Delivered at {order.deliveredAt}</Message>
-              ):(
-
-                <Message varient="warning">Not delivered</Message>
+                <Message varient="success">
+                  Delivered at {order.deliveredAt}
+                </Message>
+              ) : (
+                <Message variant="danger">Not delivered</Message>
               )}
             </ListGroup.Item>
 
@@ -71,10 +125,9 @@ function OrderScreen() {
                 {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                  <Message varient="success">Paid on {order.paidAt}</Message>
-              ):(
-
-                <Message varient="warning">Not paid</Message>
+                <Message variant="info">Paid on {order.paidAt}</Message>
+              ) : (
+                <Message variant="danger">Not paid</Message>
               )}
             </ListGroup.Item>
 
@@ -122,7 +175,7 @@ function OrderScreen() {
                 <Row>
                   <Col>Items:</Col>
 
-                  <Col>${order.orderPrice}</Col>
+                  <Col>${order.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
@@ -148,6 +201,23 @@ function OrderScreen() {
                   <Col>${order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
+
+              {(order.paymentMethod==="PayPal")?(!order.isPaid && (
+                <ListGroup.Item>
+                  {loadingPay && <Loader />}
+                  {!sdkReady ? (
+                    <Loader />
+                  ) : (
+                    <PayPalButton
+                      amount={order.totalPrice}
+                      onSuccess={successPaymentHandler}
+                    />
+                  )}
+                </ListGroup.Item>
+              )):(
+                <LiqPayButton amount = {order.totalPrice}
+                currency = {'USD'} title={"Test"} orderId = {orderId}/>
+              )}
             </ListGroup>
           </Card>
         </Col>

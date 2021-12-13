@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+import { Form, Button, Row, Col, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { getUserDetails, updateUserProfile } from "../actions/userActions";
 import { applyMiddleware } from "redux";
 import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
+import { listMyOrders } from "../actions/orderActions";
 
 function ProfileScreen() {
   const dispatch = useDispatch();
@@ -28,15 +30,18 @@ function ProfileScreen() {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
 
+  const orderListMy = useSelector((state) => state.orderListMy);
+  const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
+
   useEffect(() => {
     if (!userInfo) {
       navigate("/login");
     } else {
-      if (!user || !user.name || success||userInfo._id !== user._id) {
+      if (!user || !user.name || success || userInfo._id !== user._id) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserDetails("profile"));
+        dispatch(listMyOrders());
       } else {
-        
         setName(userInfo.name);
         setEmail(userInfo.email);
       }
@@ -118,6 +123,11 @@ function ProfileScreen() {
       </Col>
       <Col md={8}>
         <h2>My orders</h2>
+        {loadingOrders ?(
+          <Loader/>
+        ): errorOrders ?(
+          <Message variant = "danger">{e</Message>
+        )}
       </Col>
     </Row>
   );
