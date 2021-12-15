@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { LinkContainer } from "react-router-bootstrap";
+//import { LinkContainer } from "react-router-bootstrap";
 import { Form, Button, Row, Col, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
@@ -123,10 +123,35 @@ function ProfileScreen() {
       </Col>
       <Col md={8}>
         <h2>My orders</h2>
-        {loadingOrders ?(
-          <Loader/>
-        ): errorOrders ?(
-          <Message variant = "danger">{e</Message>
+        {loadingOrders ? (
+          <Loader />
+        ) : errorOrders ? (
+          <Message variant="danger">{errorOrders}</Message>
+        ) : (
+          <Table striped responsive className="table-sm">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Paid</th>
+                <th>Delivered</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {orders.map(order=>(
+                <tr key = {order._id} >
+                  <td>{order._id}</td>
+                  <td>{order.createdAt.substring(0, 10)}</td>
+                  <td>${order.totalPrice}</td>
+                  <td>{order.isPaid ? order.paidAt:(<i className='fas fa-times' style={{color:"red"}}></i>)}</td>
+                  <td><Link to={`/orders/${order._id}`} >
+                    <Button className="btn-sm">Details</Button></Link></td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         )}
       </Col>
     </Row>
