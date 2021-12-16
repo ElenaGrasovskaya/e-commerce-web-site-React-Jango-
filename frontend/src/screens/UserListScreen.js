@@ -66,7 +66,7 @@ function UserListScreen() {
                   )}
                 </td>
                 <td>
-                  <Link to={`/admin/user/${user._id}`}>
+                  <Link to={`/admin/user/${user._id}/edit`}>
                     <Button variant="light" className="btn-sm">
                       <i class="fas fa-edit" style={{ color: "green" }}></i>
                     </Button>
