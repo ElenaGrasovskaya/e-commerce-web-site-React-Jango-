@@ -6,4 +6,6 @@ urlpatterns = [
 
     path('', views.getProducts, name="products"),
     path('<str:pk>', views.getProduct, name="products"),
-]  
+
+    path('delete/<str:pk>/', views.deleteProduct, name="product"),
+]   

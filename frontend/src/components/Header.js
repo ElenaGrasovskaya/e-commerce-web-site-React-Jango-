@@ -51,11 +51,11 @@ function Header() {
                   </NavDropdown.Item>
 
                   <NavDropdown.Item>
-                    <Link to="/admin/userlist">Products</Link>
+                    <Link to="/admin/products">Products</Link>
                   </NavDropdown.Item>
 
                   <NavDropdown.Item>
-                    <Link to="/admin/userlist">Orders</Link>
+                    <Link to="/admin/orders">Orders</Link>
                   </NavDropdown.Item>
 
                   <NavDropdown.Item onClick={logoutHandler}>

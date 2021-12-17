@@ -28,10 +28,13 @@ function UserListScreen() {
     } else {
       navigate("/login");
     }
-  }, [dispatch, navigate, successDelete]);
+  }, [dispatch, navigate, successDelete, userInfo]);
 
   const deleteHandler = (id) => {
-    dispatch(deleteUsers(id));
+    if(window.confirm('Are you sure you want to delete this user?')) {
+      dispatch(deleteUsers(id));
+    }
+    
   };
 
   return (

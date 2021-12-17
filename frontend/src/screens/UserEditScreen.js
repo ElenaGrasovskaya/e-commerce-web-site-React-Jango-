@@ -8,7 +8,7 @@ import FormContainer from "../components/FormContainer";
 import { useParams } from "react-router";
 import { USER_UPDATE_RESET } from "../constants/userConstants";
 
-import { getUserDetails, register, userUpdate } from "../actions/userActions";
+import { getUserDetails, register, updateUser } from "../actions/userActions";
 import { applyMiddleware } from "redux";
 
 function UserEditScreen() {
@@ -32,7 +32,7 @@ function UserEditScreen() {
     success: successUpdate,
   } = userUpdate;
 
-  let success = false;
+
 
   useEffect(() => {
     if (successUpdate) {
@@ -42,7 +42,7 @@ function UserEditScreen() {
       if (!user.name || user._id !== Number(id)) {
         dispatch(getUserDetails(id));
       } else {
-        setName(user.email);
+        setName(user.name);
         setEmail(user.email);
         setIsAdmin(user.isAdmin);
       }
@@ -51,7 +51,7 @@ function UserEditScreen() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(userUpdate({_id:user._id, name, email, isAdmin}));
+    dispatch(updateUser({_id:user._id, name, email, isAdmin}));
   };
 
   return (
