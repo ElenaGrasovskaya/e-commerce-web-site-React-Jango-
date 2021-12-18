@@ -4,9 +4,9 @@ import { Table, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-import { listProducts, deleteProduct } from "../actions/productActions";
+import { listProducts, deleteProduct, createProduct } from "../actions/productActions";
 import { useParams } from "react-router";
-
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 import { register } from "../actions/userActions";
 
 function ProductListScreen() {
@@ -22,16 +22,27 @@ function ProductListScreen() {
   const productDelete = useSelector((state) => state.productDelete);
   const { error:errorDelete, loading:loadingDelete, success: successDelete } = productDelete;
 
+  const productCreate = useSelector((state) => state.productCreate);
+  const { error: errorCreate, loading: loadingCreate, success: successCreate, product: createdProduct } = productCreate;
+
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listProducts());
-    } else {
+    dispatch({ type: PRODUCT_CREATE_RESET})
+
+    if (!userInfo.isAdmin) {
       navigate("/login");
     }
-  }, [dispatch, navigate, userInfo, successDelete]);
+    
+    if(successCreate){
+      navigate(`/admin/product/${createdProduct._id}/edit`);
+    } else {
+      dispatch(listProducts())
+    }
+        
+  }, [dispatch, navigate, userInfo, successDelete, successCreate, createdProduct]);
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
@@ -39,8 +50,8 @@ function ProductListScreen() {
     }
   };
 
-  const createProductHandler = (product) => {
-    console.log("Product Created");
+  const createProductHandler = () => {
+    dispatch(createProduct());
   };
 
   return (
@@ -59,17 +70,21 @@ function ProductListScreen() {
 
       {loadingDelete && <Loader/>}
       {errorDelete &&<Message variant="danger">{errorDelete}</Message>}
+
+      {loadingCreate && <Loader/>}
+      {errorCreate &&<Message variant="danger">{errorCreate}</Message>}
+
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Table striped bordered hover responsibe className="table-sm">
+        <Table striped bordered hover responsive className="table-sm">
           <thead>
             <tr>
               <th>ID</th>
               <th>NAME</th>
-              <th>PRICE</th>
+              <th>PRICE</th> 
               <th>CATEGORY</th>
               <th>BRAND</th>
               <th></th>
@@ -87,7 +102,7 @@ function ProductListScreen() {
                 <td>
                   <Link to={`/admin/product/${product._id}/edit`}>
                     <Button variant="light" className="btn-sm">
-                      <i class="fas fa-edit" style={{ color: "green" }}></i>
+                      <i className="fas fa-edit" style={{ color: "green" }}></i>
                     </Button>
                   </Link>
 
@@ -96,7 +111,7 @@ function ProductListScreen() {
                     className="btn-sm"
                     onClick={() => deleteHandler(product._id)}
                   >
-                    <i class="fa fa-trash"></i>
+                    <i className="fa fa-trash"></i>
                   </Button>
                 </td>
               </tr>

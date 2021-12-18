@@ -51,7 +51,7 @@ function Header() {
                   </NavDropdown.Item>
 
                   <NavDropdown.Item>
-                    <Link to="/admin/products">Products</Link>
+                    <Link to="/admin/productlist">Products</Link>
                   </NavDropdown.Item>
 
                   <NavDropdown.Item>

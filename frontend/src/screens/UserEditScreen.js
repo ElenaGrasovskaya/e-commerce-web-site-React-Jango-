@@ -68,9 +68,9 @@ function UserEditScreen() {
             <Form.Group controlId="name">
               <Form.Label>Enter Name</Form.Label>
               <Form.Control
-                type="name"
+                type="text"
                 placeholder="Enter Name"
-                value={email}
+                value={name}
                 onChange={(e) => setName(e.target.value)}
               ></Form.Control>
             </Form.Group>
