@@ -6,9 +6,9 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import FormContainer from "../components/FormContainer";
 import { useParams } from "react-router";
-
-import { listProductDetails } from "../actions/productActions";
-
+import axios from "axios";
+import { listProductDetails, updateProduct } from "../actions/productActions";
+import { PRODUCT_UPDATE_RESET } from "../constants/productConstants";
 import {
   getUserDetails,
   register,
@@ -24,6 +24,7 @@ function ProductEditScreen() {
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -33,7 +34,16 @@ function ProductEditScreen() {
   const productDetails = useSelector((state) => state.productDetails);
   const { error, loading, product } = productDetails;
 
+  const productUpdate = useSelector((state) => state.productUpdate);
+  const { error:errorUpdate, loading:loadingUpdate, success:successUpdate } = productUpdate;
+
   useEffect(() => {
+
+    if(successUpdate)
+    {
+      dispatch({type:PRODUCT_UPDATE_RESET});
+      navigate("/admin/productlist")
+    }
     if (!product.name || product._id !== Number(productId)) {
       dispatch(listProductDetails(productId));
     } else {
@@ -45,18 +55,36 @@ function ProductEditScreen() {
       setCountInStock(product.countInStock);
       setDescription(product.description);
     }
-  }, [product, productId, dispatch, navigate]);
+  }, [product, productId, dispatch, navigate, successUpdate]);
 
   const submitHandler = (e) => {
+
     e.preventDefault();
-    //Update product
+    dispatch(updateProduct({
+      _id: productId,
+      name,
+      price,
+      image,
+      brand,
+      category,
+      countInStock,
+      description
+
+    }))
   };
+
+  const uploadFileHandler  = async(e) => {
+    console.log("File is uploading")
+  }
 
   return (
     <div>
       <Link to="/admin/productlist">Go Back</Link>
       <FormContainer>
         <h1>Edit Product</h1>
+        {loadingUpdate && <Loader/>}
+        {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
+
         {loading ? (
           <Loader />
         ) : error ? (
@@ -83,7 +111,7 @@ function ProductEditScreen() {
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="image">
+            <Form.Group controlId="image" className = "my-2" >
               <Form.Label>Add image</Form.Label>
               <Form.Control
                 type="text"
@@ -91,6 +119,16 @@ function ProductEditScreen() {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
+
+              <Form.Control 
+              type="file"
+              className = "my-1"
+              id = "image-file"
+              label ="Choose file"
+              custom
+              onChange={uploadFileHandler}
+              
+              />
             </Form.Group>
 
             <Form.Group controlId="brand">

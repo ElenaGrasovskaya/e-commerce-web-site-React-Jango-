@@ -47,13 +47,13 @@ def updateProduct(request, pk):
     data = request.data
     product = Product.objects.get(_id=pk)
 
-    product.name=data["name"]
-    product.price=data["price"]
-    product.brand=data["brand"]
-    product.countInStock=data["countInStock"]
-    product.category=data["name"]
-    product.category=data["category"]
-    product.description=data["description"]
+    product.name=data["product"]["name"]
+    product.price=data["product"]["price"]
+    product.brand=data["product"]["brand"]
+    product.countInStock=data["product"]["countInStock"]
+    product.category=data["product"]["name"]
+    product.category=data["product"]["category"]
+    product.description=data["product"]["description"]
 
     product.save()
 
@@ -66,3 +66,14 @@ def deleteProduct(request, pk):
     product = Product.objects.get(_id=pk)
     product.delete()
     return Response('Product deleted')
+
+@api_view(['POST'])
+def uploadImage(request):
+    data = request.data
+
+    product_id = data["product_id"]
+    product = Product.objects.get(_id=product_id)
+
+    product.image = request.FILES.get("image")
+    product.save()
+    return Response("Image was uploaded")
