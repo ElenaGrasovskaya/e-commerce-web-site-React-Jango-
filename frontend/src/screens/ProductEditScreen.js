@@ -35,14 +35,16 @@ function ProductEditScreen() {
   const { error, loading, product } = productDetails;
 
   const productUpdate = useSelector((state) => state.productUpdate);
-  const { error:errorUpdate, loading:loadingUpdate, success:successUpdate } = productUpdate;
+  const {
+    error: errorUpdate,
+    loading: loadingUpdate,
+    success: successUpdate,
+  } = productUpdate;
 
   useEffect(() => {
-
-    if(successUpdate)
-    {
-      dispatch({type:PRODUCT_UPDATE_RESET});
-      navigate("/admin/productlist")
+    if (successUpdate) {
+      dispatch({ type: PRODUCT_UPDATE_RESET });
+      navigate("/admin/productlist");
     }
     if (!product.name || product._id !== Number(productId)) {
       dispatch(listProductDetails(productId));
@@ -58,31 +60,53 @@ function ProductEditScreen() {
   }, [product, productId, dispatch, navigate, successUpdate]);
 
   const submitHandler = (e) => {
-
     e.preventDefault();
-    dispatch(updateProduct({
-      _id: productId,
-      name,
-      price,
-      image,
-      brand,
-      category,
-      countInStock,
-      description
-
-    }))
+    dispatch(
+      updateProduct({
+        _id: productId,
+        name,
+        price,
+        image,
+        brand,
+        category,
+        countInStock,
+        description,
+      })
+    );
   };
 
-  const uploadFileHandler  = async(e) => {
-    console.log("File is uploading")
-  }
+  const uploadFileHandler = async (e) => {
+    console.log(e.target.files);
+    const file = e.target.files[0];
+    const formData = new FormData();
+
+    formData.append("image", file);
+    formData.append("product_id", productId);
+
+    setUploading(true);
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      const { data } = await axios.post(
+        "/api/products/upload/", formData, config
+      );
+
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      setUploading(false);
+    }
+  };
 
   return (
     <div>
       <Link to="/admin/productlist">Go Back</Link>
       <FormContainer>
         <h1>Edit Product</h1>
-        {loadingUpdate && <Loader/>}
+        {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
 
         {loading ? (
@@ -111,7 +135,7 @@ function ProductEditScreen() {
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="image" className = "my-2" >
+            <Form.Group controlId="image" className="my-2">
               <Form.Label>Add image</Form.Label>
               <Form.Control
                 type="text"
@@ -120,15 +144,16 @@ function ProductEditScreen() {
                 onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
 
-              <Form.Control 
-              type="file"
-              className = "my-1"
-              id = "image-file"
-              label ="Choose file"
-              custom
-              onChange={uploadFileHandler}
-              
+              <Form.Control
+                type="file"
+                className="my-1"
+                controlId ="image-file"
+                label="Choose file"
+
+                onChange={uploadFileHandler}
               />
+
+              {uploading && <Loader />}
             </Form.Group>
 
             <Form.Group controlId="brand">
