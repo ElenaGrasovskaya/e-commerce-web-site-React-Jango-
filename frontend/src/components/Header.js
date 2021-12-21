@@ -55,7 +55,7 @@ function Header() {
                   </NavDropdown.Item>
 
                   <NavDropdown.Item>
-                    <Link to="/admin/orders">Orders</Link>
+                    <Link to="/admin/orderlist">Orders</Link>
                   </NavDropdown.Item>
 
                   <NavDropdown.Item onClick={logoutHandler}>
