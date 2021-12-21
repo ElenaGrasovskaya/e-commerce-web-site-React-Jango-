@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', '_id', 'username', 'email', 'name', 'isAdmin']
 
-    def get__id(self, obj):
+    def get__id(self, obj): 
         return obj.id
 
     def get_isAdmin(self, obj):
@@ -53,8 +53,8 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_reviews(self, obj):
-        #reviews = obj.review_set.all()
-        serializer = ReviewSerializer( many=True)
+        reviews = obj.review_set.all()
+        serializer = ReviewSerializer( reviews, many=True)
         return serializer.data
 
 
