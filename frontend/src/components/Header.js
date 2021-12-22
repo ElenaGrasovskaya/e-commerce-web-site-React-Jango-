@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from "react-router";
+import SearchBox from "../components/SearchBox"
 import { logout } from "../actions/userActions";
 function Header() {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ function Header() {
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
+            <SearchBox></SearchBox>
             <Nav className="mr-auto">
               <Nav.Link onClick={() => navigate("/cart")}>
                 <i className="fa fa-shopping-cart mx-1"></i>Cart
