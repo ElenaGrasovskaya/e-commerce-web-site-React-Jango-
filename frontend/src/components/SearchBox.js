@@ -13,7 +13,7 @@ function SearchBox() {
   const submitHandler = (e) => {
     e.preventDefault();
     if(keyword){
-        navigate(`/?keyword=${keyword}`)
+        navigate(`/?keyword=${keyword}&page=1`)
     }
     else
     {
@@ -23,7 +23,7 @@ function SearchBox() {
   };
   return (
     <Form onSubmit={submitHandler}>
-      <Container fluid>
+      <Container fluid="true">
         <Row>
           <Col md={8} xl={8} className="my-2">
             <Form.Control

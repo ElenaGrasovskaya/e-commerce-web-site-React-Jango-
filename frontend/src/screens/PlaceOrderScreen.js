@@ -92,7 +92,7 @@ function PlaceOrderScreen() {
                           <Image
                             src={item.image}
                             alt={item.name}
-                            fluid
+                            fluid="true"
                             rounded
                           />
                         </Col>

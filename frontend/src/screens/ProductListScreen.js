@@ -4,6 +4,7 @@ import { Table, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Paginate from "../components/Paginate";
 import { listProducts, deleteProduct, createProduct } from "../actions/productActions";
 import { useParams } from "react-router";
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
@@ -17,7 +18,7 @@ function ProductListScreen() {
   const { id } = useParams();
 
   const productlist = useSelector((state) => state.productlist);
-  const { error, loading, products } = productlist;
+  const { loading, error, products, page, pages } = productlist;
 
   const productDelete = useSelector((state) => state.productDelete);
   const { error:errorDelete, loading:loadingDelete, success: successDelete } = productDelete;
@@ -118,7 +119,9 @@ function ProductListScreen() {
             ))}
           </tbody>
         </Table>
+        
       )}
+      <Paginate page={page} pages={pages} isAdmin = {false} />
     </div>
   );
 }

@@ -68,7 +68,7 @@ function CartScreen({ history }) {
                     <Image
                       src={item.image}
                       alt={item.name}
-                      fluid
+                      fluid="true"
                       rounded
                     ></Image>
                   </Col>
