@@ -17,6 +17,7 @@ function SearchBox() {
     }
     else
     {
+      console.log("location.pathname", location.pathname)
        navigate(location.pathname); 
     }
   };

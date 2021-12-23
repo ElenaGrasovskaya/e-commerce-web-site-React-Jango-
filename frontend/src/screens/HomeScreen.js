@@ -11,12 +11,11 @@ function HomeScreen() {
   const dispatch = useDispatch();
   const location = useLocation();
   let keyword = location.search
-  console.log("keyword", keyword)
-
+  
   const productlist = useSelector((state) => state.productlist);
   const { loading, error, products } = productlist;
   useEffect(() => {
-    dispatch(listProducts());
+    dispatch(listProducts(keyword));
   }, [dispatch, keyword]);
 
   return (
