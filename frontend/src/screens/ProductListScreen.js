@@ -14,6 +14,7 @@ function ProductListScreen() {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
+  let keyword = location.search; 
 
   const { id } = useParams();
 
@@ -40,10 +41,10 @@ function ProductListScreen() {
     if(successCreate){
       navigate(`/admin/product/${createdProduct._id}/edit`);
     } else {
-      dispatch(listProducts())
+      dispatch(listProducts(keyword))
     }
         
-  }, [dispatch, navigate, userInfo, successDelete, successCreate, createdProduct]);
+  }, [dispatch, navigate, userInfo, successDelete, successCreate, createdProduct, keyword]);
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
@@ -116,12 +117,15 @@ function ProductListScreen() {
                   </Button>
                 </td>
               </tr>
+              
             ))}
+
+            <tr><Paginate page={page} pages={pages} isAdmin = {false}/></tr>
           </tbody>
         </Table>
         
       )}
-      <Paginate page={page} pages={pages} isAdmin = {false} />
+      
     </div>
   );
 }
