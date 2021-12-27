@@ -79,13 +79,13 @@ def updateProduct(request, pk):
     product.price=data["product"]["price"]
     product.brand=data["product"]["brand"]
     product.countInStock=data["product"]["countInStock"]
-    product.category=data["product"]["name"]
+
     product.category=data["product"]["category"]
     product.description=data["product"]["description"]
 
     product.save()
 
-    serializer = ProductSerializer(products, many=True)
+    serializer = ProductSerializer(product, many=False)
     return Response(serializer.data)
 
 @api_view(['DELETE'])
