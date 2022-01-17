@@ -3,7 +3,7 @@ from rest_framework import views
 from base.views import order_views as views
 
 urlpatterns = [
-     path('', views.getOrders, name='my-orders'),
+    path('', views.getOrders, name='my-orders'),
     path('add/', views.addOrderItems, name='orders-add'),
     path('myorders/', views.getMyOrders, name='my-orders'),
 
