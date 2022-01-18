@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'base.apps.BaseConfig',
     'rest_framework',
-    "corsheaders",
+    'corsheaders',
+    'storages',
+
+   # 'base.apps.BaseConfig',
     
     
      
@@ -136,9 +139,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'proshop',
-        'USER': 'postgres',
-        'PASSWORD': '35916',
-        'HOST': 'localhost',
+        'USER': 'ElenaGrasovskaya',
+        'PASSWORD': 'SigrleenPhoenix241183!',
+        'HOST': 'proshop.c6ybc7i8dcls.us-east-1.rds.amazonaws.com',
         'POST': '5432'
     }
 }
@@ -200,3 +203,5 @@ CORS_ALLOW_ALL_ORIGINS = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
