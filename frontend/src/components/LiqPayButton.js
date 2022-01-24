@@ -1,7 +1,7 @@
 import { LiqPayPay, LiqPaySubscribe } from "react-liqpay";
 import React from "react";
 
-function LiqPayButton({amount, currency, title, orderId}) {
+function LiqPayButton({amount, currency = "UAH", title, orderId}) {
 
 
   const ButtonComponent = () => (
@@ -16,7 +16,7 @@ function LiqPayButton({amount, currency, title, orderId}) {
         cursor: "pointer",
       }}
     >
-      {`${payInfo.title} ${payInfo.amount} ${payInfo.currency}`}
+      {`${title} ${amount} ${currency}`}
     </button>
   );
 

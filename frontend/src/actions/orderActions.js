@@ -123,7 +123,7 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
       config
     );
 
-    alert("paymentResult"), console.log("paymentResult", paymentResult);
+
 
     dispatch({
       type: ORDER_PAY_SUCCESS,
