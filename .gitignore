@@ -56,12 +56,13 @@ npm-debug.log
 
 # Sass
 .sass-cache
-*.map
+
 
 # General
 /{{project_name}}-venv/
 /venv/
 /env/
+myenv
 /output/
 /cache/
 boilerplate.zip
