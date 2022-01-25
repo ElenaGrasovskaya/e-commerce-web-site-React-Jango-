@@ -44,7 +44,7 @@ function ProductEditScreen() {
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
-      navigate("/admin/productlist");
+      navigate("/admin/listproducts");
     }
     if (!product.name || product._id !== Number(productId)) {
       dispatch(listProductDetails(productId));
@@ -103,7 +103,7 @@ function ProductEditScreen() {
 
   return (
     <div>
-      <Link to="/admin/productlist">Go Back</Link>
+      <Link to="/admin/listproducts">Go Back</Link>
       <FormContainer>
         <h1>Edit Product</h1>
         {loadingUpdate && <Loader />}

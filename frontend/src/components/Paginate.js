@@ -5,16 +5,16 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 function Paginate(props) {
   let { page, pages, isAdmin } = props;
   let currentLocation = window.location;
-  console.log("currentLocation", currentLocation);
+
 
   const location = useLocation();
   const navigate = useNavigate();
 
-  console.log("location", location);
+
 
   useEffect(() => {
     if (currentLocation.search === "") {
-      navigate(currentLocation.pathname + "?page=1");
+      navigate(location.pathname + "?page=1");
     }
   }, [currentLocation.href]);
 

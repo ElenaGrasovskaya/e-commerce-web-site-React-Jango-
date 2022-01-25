@@ -21,7 +21,7 @@ function Header() {
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container fluid>
-          <Navbar.Brand onClick={() => navigate("/?page=1")}><Image height={"100px"} width={"100px"} src={"/images/logo_small.png"} fluid /></Navbar.Brand>
+          <Navbar.Brand onClick={() => navigate("/?page=1")}><Image height={"70px"} width={"70px"} src={"/images/logo_small.png"} fluid /></Navbar.Brand>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -48,13 +48,13 @@ function Header() {
               )}
 
               {userInfo && userInfo.isAdmin && (
-                <NavDropdown title="Admin" id="adminMenu">
+                <NavDropdown title="Админ" id="adminMenu">
                   <NavDropdown.Item>
                     <Link to="/admin/userlist">Пользоваели</Link>
                   </NavDropdown.Item>
 
                   <NavDropdown.Item>
-                    <Link to="/admin/productlist">Продукты</Link>
+                    <Link to="/admin/listproducts">Продукты</Link>
                   </NavDropdown.Item>
 
                   <NavDropdown.Item>

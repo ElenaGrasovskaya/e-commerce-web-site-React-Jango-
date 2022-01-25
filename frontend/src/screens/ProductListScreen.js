@@ -33,16 +33,18 @@ function ProductListScreen() {
 
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET})
+ 
 
     if (!userInfo.isAdmin) {
       navigate("/login");
     }
-    
+
     if(successCreate){
       navigate(`/admin/product/${createdProduct._id}/edit`);
     } else {
       dispatch(listProducts(keyword))
     }
+
         
   }, [dispatch, navigate, userInfo, successDelete, successCreate, createdProduct, keyword]);
 
@@ -65,7 +67,7 @@ function ProductListScreen() {
 
         <Col className="text-right">
           <Button className="my-3" onClick={createProductHandler}>
-            <i className="fas fa-plus"></i>  Create Product
+            <i className="fa fa-plus"></i>  Create Product
           </Button> 
         </Col>
       </Row>
@@ -104,7 +106,7 @@ function ProductListScreen() {
                 <td>
                   <Link to={`/admin/product/${product._id}/edit`}>
                     <Button variant="light" className="btn-sm">
-                      <i className="fas fa-edit" style={{ color: "green" }}></i>
+                      <i className="fa fa-edit" style={{ color: "green" }}></i>
                     </Button>
                   </Link>
 

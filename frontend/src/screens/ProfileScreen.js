@@ -68,7 +68,7 @@ function ProfileScreen() {
     <Row>
       <Col md={4}>
         <h2>User Profile</h2>
-        {message && <Message variant="success">{message}</Message>}
+        {message && <Message variant="info">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}
 
         {loading && <Loader />}

@@ -41,7 +41,7 @@ function CartScreen({ history }) {
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
-    console.log("remove", id);
+
   };
 
   const checkoutHandler = () => {

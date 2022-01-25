@@ -13,29 +13,31 @@ function SearchBox() {
   const submitHandler = (e) => {
     e.preventDefault();
     if(keyword){
+
         navigate(`/?keyword=${keyword}&page=1`)
     }
     else
     {
       console.log("location.pathname", location.pathname)
-       navigate(location.pathname); 
+      navigate(location.pathname); 
     }
   };
   return (
     <Form onSubmit={submitHandler}>
       <Container fluid="true">
         <Row>
-          <Col md={8} xl={8} className="my-2">
+          <Col md={10} xl={8} className="my-2" >
             <Form.Control
               type="text"
               name="q"
               onChange={(e) => setKeyword(e.target.value)}
               className="mr-sm-2 ml-sm-5"
+              height="70px"
             ></Form.Control>
           </Col>
-          <Col md={3} xl={2} className="my-2">
-            <Button type="submit" variant="outline-success" className="p-2 mr-sm-2 ml-sm-5" >
-              Поиск
+          <Col md={4} xl={3} className="my-2">
+            <Button type="submit" variant="outline-success" className="p-2 mr-sm-2 ml-sm-5" height="70px" fluid="true">
+            <i className="fa fa-search"></i>Поиск
             </Button>
           </Col>
         </Row>

@@ -13,7 +13,7 @@ function HomeScreen() {
   const dispatch = useDispatch();
   const location = useLocation();
   let keyword = location.search;
-  console.log("keyword from home screen", keyword);
+
 
   const productlist = useSelector((state) => state.productlist);
   const { loading, error, products, page, pages } = productlist;
