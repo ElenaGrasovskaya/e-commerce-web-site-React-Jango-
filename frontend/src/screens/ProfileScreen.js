@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-//import { LinkContainer } from "react-router-bootstrap";
+
 import { Form, Button, Row, Col, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
@@ -67,7 +67,7 @@ function ProfileScreen() {
   return (
     <Row>
       <Col md={4}>
-        <h2>User Profile</h2>
+        <h2>Мой профиль</h2>
         {message && <Message variant="info">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}
 
@@ -75,7 +75,7 @@ function ProfileScreen() {
 
         <Form onSubmit={submitHandler}>
           <Form.Group cntrolid="name">
-            <Form.Label>Enter Name</Form.Label>
+            <Form.Label>Ваше имя</Form.Label>
             <Form.Control
               required
               type="name"
@@ -86,7 +86,7 @@ function ProfileScreen() {
           </Form.Group>
 
           <Form.Group cntrolid="email">
-            <Form.Label>Email Address</Form.Label>
+            <Form.Label>Email</Form.Label>
             <Form.Control
               required
               type="email"
@@ -97,7 +97,7 @@ function ProfileScreen() {
           </Form.Group>
 
           <Form.Group cntrolid="password">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Пароль</Form.Label>
             <Form.Control
               type="password"
               placeholder="Enter Password"
@@ -107,7 +107,7 @@ function ProfileScreen() {
           </Form.Group>
 
           <Form.Group cntrolid="passwordConfirm">
-            <Form.Label>Confirm Password</Form.Label>
+            <Form.Label>Подтвердите пароль</Form.Label>
             <Form.Control
               type="confirmPassword"
               placeholder="Confirm Password"
@@ -117,12 +117,12 @@ function ProfileScreen() {
           </Form.Group>
 
           <Button type="submit" variant="primary" className="my-3">
-            Update
+            Обновить
           </Button>
         </Form>
       </Col>
       <Col md={8}>
-        <h2>My orders</h2>
+        <h2>Мои заказы</h2>
         {loadingOrders ? (
           <Loader />
         ) : errorOrders ? (
@@ -132,22 +132,31 @@ function ProfileScreen() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Date</th>
-                <th>Total</th>
-                <th>Paid</th>
-                <th>Delivered</th>
+                <th>ДАТА</th>
+                <th>ВСЕГО</th>
+                <th>ОПЛАЧЕНО</th>
+                <th>ДОСТАВЛЕНО</th>
               </tr>
             </thead>
 
             <tbody>
-              {orders.map(order=>(
-                <tr key = {order._id} >
+              {orders.map((order) => (
+                <tr key={order._id}>
                   <td>{order._id}</td>
                   <td>{order.createdAt.substring(0, 10)}</td>
                   <td>${order.totalPrice}</td>
-                  <td>{order.isPaid ? order.paidAt:(<i className='fas fa-times' style={{color:"red"}}></i>)}</td>
-                  <td><Link to={`/orders/${order._id}`} >
-                    <Button className="btn-sm">Details</Button></Link></td>
+                  <td>
+                    {order.isPaid ? (
+                      order.paidAt
+                    ) : (
+                      <i className="fas fa-times" style={{ color: "red" }}></i>
+                    )}
+                  </td>
+                  <td>
+                    <Link to={`/orders/${order._id}`}>
+                      <Button className="btn-sm">Подробнее</Button>
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>

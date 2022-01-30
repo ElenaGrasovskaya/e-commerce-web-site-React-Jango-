@@ -6,7 +6,7 @@ function Footer() {
     <footer>
       <Container>
           <Row>
-              <Col className = "text-center py-3"> LeSport OUTFIT  -  A CHOICE FOR FITNESS
+              <Col className = "text-center py-3"> Наш футтер с запоминающейся фразой
               </Col>
           </Row>
           </Container>

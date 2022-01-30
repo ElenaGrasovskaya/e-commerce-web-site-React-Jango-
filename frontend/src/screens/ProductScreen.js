@@ -70,7 +70,7 @@ function ProductScreen() {
   return (
     <div>
       <Link to="/" className="btn btn-light my-3">
-        Go Back
+        Назад
       </Link>
       {loading && !error ? (
         <Loader />
@@ -96,10 +96,10 @@ function ProductScreen() {
                   ></Rating>
                 </ListGroup.Item>
 
-                <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
+                <ListGroup.Item>Цена: ${product.price}</ListGroup.Item>
 
                 <ListGroup.Item>
-                  Description: {product.description}
+                  Описание: {product.description}
                 </ListGroup.Item>
               </ListGroup>
             </Col>
@@ -108,7 +108,7 @@ function ProductScreen() {
                 <ListGroup variant="flush">
                   <ListGroup.Item>
                     <Row>
-                      <Col>Price:</Col>
+                      <Col>Цена:</Col>
                       <Col>
                         <strong>${product.price} </strong>
                       </Col>
@@ -116,7 +116,7 @@ function ProductScreen() {
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <Row>
-                      <Col>Status:</Col>
+                      <Col>Статус:</Col>
                       <Col>
                         <strong>
                           {product.countInStock > 0
@@ -129,7 +129,7 @@ function ProductScreen() {
                   {product.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
-                        <Col>Qty</Col>
+                        <Col>Кол-во</Col>
                         <Col xs="auto" className="my-1">
                           <Form.Control
                             as="select"
@@ -155,7 +155,7 @@ function ProductScreen() {
                       disabled={product.countInStock == 0}
                       type="button"
                     >
-                      Add to Cart
+                      В корзину
                     </Button>
                   </ListGroup.Item>
                 </ListGroup>
@@ -165,9 +165,9 @@ function ProductScreen() {
 
           <Row>
             <Col md={6}>
-              <h3>Reviews</h3>
+              <h3>Отзывы</h3>
               {product.reviews.length === 0 && (
-                <Message variant="info">No Reviews</Message>
+                <Message variant="info">Нет отзывов</Message>
               )}
               <ListGroup variant="flush">
                 {product.reviews.map((review) => (
@@ -179,35 +179,35 @@ function ProductScreen() {
                   </ListGroup.Item>
                 ))}
                 <ListGroup.Item>
-                  <h3>Write a review</h3>
+                  <h3>Написать отзыв</h3>
                   {loadingProductReview && <Loader />}
                   {successProductReview && (
-                    <Message variant="success">Review submitted</Message>
+                    <Message variant="success">Отзыв сохранен</Message>
                   )}
                   {errorProductReview && (
-                    <Message variant="danger">Review was not submitted</Message>
+                    <Message variant="danger">Отзыв не сохранен</Message>
                   )}
 
                   {userInfo ? (
                     <Form onSubmit={submitHandler}>
                       <Form.Group controlId="rating">
-                        <Form.Label>Rating</Form.Label>
+                        <Form.Label>Рейтинг</Form.Label>
                         <Form.Control
                           as="select"
                           value={rating}
                           onChange={(e) => setRating(e.target.value)}
                         >
-                          <option value="">Select...</option>
-                          <option value="1">1 - Poor</option>
-                          <option value="2">2 - Fair</option>
-                          <option value="3">3 - Decent</option>
-                          <option value="4">4 - Good</option>
-                          <option value="5">5 - Excellent</option>
+                          <option value="">Выбрать...</option>
+                          <option value="1">1 - Совсем нет</option>
+                          <option value="2">2 - Такое</option>
+                          <option value="3">3 - Средне</option>
+                          <option value="4">4 - Хорошо</option>
+                          <option value="5">5 - Прекрасно</option>
                         </Form.Control>
                       </Form.Group>
 
                       <Form.Group controlId="comment">
-                        <Form.Label>Review</Form.Label>
+                        <Form.Label>Отзыв</Form.Label>
                         <Form.Control
                           as="textarea"
                           row="5"
@@ -222,12 +222,12 @@ function ProductScreen() {
                         onSubmit={submitHandler}
                         className="my-3"
                       >
-                        Submit
+                        Сохранить
                       </Button>
                     </Form>
                   ) : (
                     <Message variant="info">
-                      Please <Link to="/login">login</Link> to write a review
+                      Пожалуйста <Link to="/login">войдите</Link> в свой аккаунт чтобы оставить отзыв
                     </Message>
                   )}
                 </ListGroup.Item>

@@ -54,10 +54,10 @@ function CartScreen({ history }) {
   return (
     <Row>
       <Col md={8}>
-        <h1>Shopping Cart</h1>
+        <h1>Корзина</h1>
         {cartItems.length === 0 ? (
           <Message variant="info">
-            Your cart is empty<Link to="/"> Go Back</Link>
+            Ваша корзина пуста<Link to="/"> Назад</Link>
           </Message>
         ) : (
           <ListGroup variant="flush">
@@ -111,7 +111,7 @@ function CartScreen({ history }) {
         <Card>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h2>Subtotal ({cartItems.reduce((acc, item) => +acc + Number(item.qty), 0)})</h2>
+              <h2>Всего ({cartItems.reduce((acc, item) => +acc + Number(item.qty), 0)})</h2>
               ${cartItems.reduce((acc, item) =>Number( +acc + Number(item.qty)*Number(item.price)).toFixed(2), 0)}
             </ListGroup.Item>
           </ListGroup>
@@ -122,7 +122,7 @@ function CartScreen({ history }) {
             disabled = {cartItems.length === 0}
             onClick = {checkoutHandler}
             >
-              Proceed To Checkout
+              Оформить заказ
 
             </Button>
           </ListGroup.Item>

@@ -27,7 +27,7 @@ function HomeScreen() {
         {(keyword.search("keyword")===-1) && <ProductCarousel></ProductCarousel>}
 
 
-        <h1>Latest Products</h1>
+        <h1>НОВИНКИ</h1>
         
         {loading ? <Loader />
             : error ? <Message variant='danger'>{error}</Message>

@@ -49,64 +49,64 @@ function RegisterScreen() {
       <h1>Sign In</h1>
       {message && <Message variant="danger">{message}</Message>}
       {error && <Message variant="danger">{error}</Message>}
-      {success && <Message variant="success">Success</Message>}
+      {success && <Message variant="success">Регистрация успешна</Message>}
       {loading && <Loader />}
 
       <Form onSubmit={submitHandler}>
         <Form.Group cntrolid="name">
-          <Form.Label>Enter Name</Form.Label>
+          <Form.Label>Ваше имя</Form.Label>
           <Form.Control
             required
             type="name"
-            placeholder="Enter Name"
+            placeholder="Ваше имя"
             value={email}
             onChange={(e) => setName(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
         <Form.Group cntrolid="email">
-          <Form.Label>Email Address</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
             required
             type="email"
-            placeholder="Enter Email"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
         <Form.Group cntrolid="password">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Пароль</Form.Label>
           <Form.Control
             required
             type="password"
-            placeholder="Enter Password"
+            placeholder="Пароль"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
         <Form.Group cntrolId="passwordConfirm">
-          <Form.Label>Confirm Password</Form.Label>
+          <Form.Label>Подтвердите пароль</Form.Label>
           <Form.Control
             required
             type="confirmPassword"
-            placeholder="Confirm Password"
+            placeholder="Подтвердите пароль"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
         <Button type="submit" variant="primary" className="my-3">
-          Register
+          Зарегистрироваться
         </Button>
       </Form>
 
       <Row className="py-3">
         <Col>
-          Have an account?{" "}
+          Уже есть аккаунт?{" "}
           <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
-            Sign In
+            Войти
           </Link>
         </Col>
       </Row>

@@ -20,7 +20,7 @@ function Product({ product }) {
           <div className="my-3">
             <Rating
               value={product.rating}
-              text={`${product.numReviews} reviews`}
+              text={`${product.numReviews} отзывов`}
               color={"#f8e825"}
             />
           </div>

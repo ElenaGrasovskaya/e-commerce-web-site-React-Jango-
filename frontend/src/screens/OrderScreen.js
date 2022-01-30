@@ -108,16 +108,16 @@ function OrderScreen() {
         <Col md={8}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h2>Shipping</h2>
+              <h2>Доставка</h2>
               <p>
-                <strong>Name: </strong> {order.user.name}{" "}
+                <strong>Имя: </strong> {order.user.name}{" "}
               </p>
               <p>
-                <strong>Name: </strong>{" "}
+                <strong>Имя: </strong>{" "}
                 <a href={`mailto:${order.user.email}`}>{order.user.email}</a>{" "}
               </p>
               <p>
-                <strong>Shipping: </strong>
+                <strong>Доставка: </strong>
                 {order.shippingAddress.address}, {order.shippingAddress.city},
                 {"   "}
                 {order.shippingAddress.postalCode},{"   "}
@@ -125,7 +125,7 @@ function OrderScreen() {
               </p>
               {order.isDelivered ? (
                 <Message variant="success">
-                  Delivered at {order.deliveredAt}
+                  Доставлено: {order.deliveredAt}
                 </Message>
               ) : (
                 <Message variant="danger">Not delivered</Message>
@@ -133,22 +133,22 @@ function OrderScreen() {
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Payment Method</h2>
+              <h2>Метод оплаты</h2>
               <p>
-                <strong>Method: </strong>
+                <strong>Оплата: </strong>
                 {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                <Message variant="success">Paid on {order.paidAt}</Message>
+                <Message variant="success">Оплачено {order.paidAt}</Message>
               ) : (
-                <Message variant="danger">Not paid</Message>
+                <Message variant="danger">Не оплачено</Message>
               )}
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Order Items</h2>
+              <h2>Продукты в заказе</h2>
               {order.orderItems.length === 0 ? (
-                <Message variant="info">Order is empty</Message>
+                <Message variant="info">Заказ пуст</Message>
               ) : (
                 <ListGroup variant="flush">
                   {order.orderItems.map((item, index) => (
@@ -183,18 +183,18 @@ function OrderScreen() {
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h2>Order Summar</h2>
+                <h2>Итого в заказе</h2>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col>Items:</Col>
+                  <Col>Продукты:</Col>
 
                   <Col>${order.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col>Shipping:</Col>
+                  <Col>Доставка:</Col>
 
                   <Col>${order.shippingPrice}</Col>
                 </Row>
@@ -202,7 +202,7 @@ function OrderScreen() {
 
               <ListGroup.Item>
                 <Row>
-                  <Col>Tax:</Col>
+                  <Col>Налог:</Col>
 
                   <Col>${order.taxPrice}</Col>
                 </Row>
@@ -210,7 +210,7 @@ function OrderScreen() {
 
               <ListGroup.Item>
                 <Row>
-                  <Col>Total:</Col>
+                  <Col>Всего:</Col>
 
                   <Col>${order.totalPrice}</Col>
                 </Row>
@@ -254,7 +254,7 @@ function OrderScreen() {
                     className="btn btn-block"
                     onClick={deliverHandler}
                   >
-                    Mark as Delivered
+                    Подтвердить доставку
                   </Button>
                 </ListGroup.Item>
               )}

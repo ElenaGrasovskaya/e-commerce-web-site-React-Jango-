@@ -56,9 +56,9 @@ function UserEditScreen() {
 
   return (
     <div>
-      <Link to="/admin/userlist">Go Back</Link>
+      <Link to="/admin/userlist">Назад</Link>
       <FormContainer>
-        <h1>Edit User</h1>
+        <h1>Настройка профиля</h1>
         {loading ? (
           <Loader />
         ) : error ? (
@@ -66,37 +66,37 @@ function UserEditScreen() {
         ) : (
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="name">
-              <Form.Label>Enter Name</Form.Label>
+              <Form.Label>Имя</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter Name"
+                placeholder="Имя"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId="email">
-              <Form.Label>Email Address</Form.Label>
+              <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Enter Email"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId="checkbox">
-              <Form.Label>Is Admin</Form.Label>
+              <Form.Label>Статус</Form.Label>
               <Form.Check
                 type="checkbox"
-                label="Is Admin"
+                label="Админ?"
                 checked={isAdmin}
                 onChange={(e) => setIsAdmin(e.target.checked)}
               ></Form.Check>
             </Form.Group>
 
             <Button type="submit" variant="primary" className="my-3">
-              Update
+              Сохранить
             </Button>
           </Form>
         )}

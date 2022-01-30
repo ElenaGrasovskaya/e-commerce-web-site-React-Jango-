@@ -29,7 +29,7 @@ function PaymentScreen() {
       <CheckOutSteps step1 step2 step3 />
       <Form onSubmit={submitHandler} className="my-3">
         <Form.Group className="my-3">
-          <Form.Label as="legend">Select Method</Form.Label>
+          <Form.Label as="legend">Выберите метод оплаты</Form.Label>
           <Col>
             <Form.Check
               className="my-3"
@@ -54,7 +54,7 @@ function PaymentScreen() {
           </Col>
         </Form.Group>
         <Button type="submit" variant="primary" className="my-3">
-          Continue
+          Продолжить
         </Button>
       </Form>
     </FormContainer>

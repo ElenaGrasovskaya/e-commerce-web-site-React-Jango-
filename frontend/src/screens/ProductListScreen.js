@@ -49,7 +49,7 @@ function ProductListScreen() {
   }, [dispatch, navigate, userInfo, successDelete, successCreate, createdProduct, keyword]);
 
   const deleteHandler = (id) => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
+    if (window.confirm("Уверены, что это продукт нужно удалить?")) {
       dispatch(deleteProduct(id))
     }
   };
@@ -62,12 +62,12 @@ function ProductListScreen() {
     <div>
       <Row className="align-items-center">
         <Col>
-          <h1>Products</h1>
+          <h1>Продукты</h1>
         </Col>
 
         <Col className="text-right">
           <Button className="my-3" onClick={createProductHandler}>
-            <i className="fa fa-plus"></i>  Create Product
+            <i className="fa fa-plus"></i>  Создать продукт
           </Button> 
         </Col>
       </Row>
@@ -87,10 +87,10 @@ function ProductListScreen() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>NAME</th>
-              <th>PRICE</th> 
-              <th>CATEGORY</th>
-              <th>BRAND</th>
+              <th>ИМЯ</th>
+              <th>ЦЕНА</th> 
+              <th>КАТЕГОРИЯ</th>
+              <th>ПРОИЗВОДИТЕЛЬ</th>
               <th></th>
             </tr>
           </thead>

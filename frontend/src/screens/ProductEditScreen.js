@@ -103,9 +103,9 @@ function ProductEditScreen() {
 
   return (
     <div>
-      <Link to="/admin/listproducts">Go Back</Link>
+      <Link to="/admin/listproducts">Назад</Link>
       <FormContainer>
-        <h1>Edit Product</h1>
+        <h1>Редактировать продукт</h1>
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
 
@@ -116,30 +116,30 @@ function ProductEditScreen() {
         ) : (
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="name">
-              <Form.Label>Enter Name</Form.Label>
+              <Form.Label>Название продукта</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter Name"
+                placeholder="Название продукта"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId="price">
-              <Form.Label>Enter Price</Form.Label>
+              <Form.Label>Цена продукта</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Enter Price"
+                placeholder="Цена продукта"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId="image" className="my-2">
-              <Form.Label>Add image</Form.Label>
+              <Form.Label>Изображение</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Add image"
+                placeholder="Изображение"
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
@@ -157,47 +157,47 @@ function ProductEditScreen() {
             </Form.Group>
 
             <Form.Group controlId="brand">
-              <Form.Label>Specify brand</Form.Label>
+              <Form.Label>Производитель</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Specify brand"
+                placeholder="Производитель"
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId="countInStock">
-              <Form.Label>Enter the number of items available</Form.Label>
+              <Form.Label>Количество доступное на складе</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Enter the number of items available"
+                placeholder="Количество доступное на складе"
                 value={countInStock}
                 onChange={(e) => setCountInStock(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId="category">
-              <Form.Label>Enter Category</Form.Label>
+              <Form.Label>Категория</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter Category"
+                placeholder="Категория"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId="description">
-              <Form.Label>Enter description</Form.Label>
+              <Form.Label>Описание</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter description"
+                placeholder="Описание"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
             <Button type="submit" variant="primary" className="my-3">
-              Update
+              Обновить
             </Button>
           </Form>
         )}

@@ -27,47 +27,47 @@ function ShippingScreen() {
   return (
     <FormContainer>
         <CheckOutSteps step1 step2/>
-      <h1>Shipping</h1>
+      <h1>Доставка</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group cntrolid="address">
-          <Form.Label>Address</Form.Label>
+          <Form.Label>Адрес</Form.Label>
           <Form.Control
             required
             type="text"
-            placeholder="Enter address"
+            placeholder="Адрес"
             value={address ? address : ""}
             onChange={(e) => setAddress(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
         <Form.Group cntrolid="city">
-          <Form.Label>City</Form.Label>
+          <Form.Label>Город</Form.Label>
           <Form.Control
             required
             type="text"
-            placeholder="Enter city"
+            placeholder="Город"
             value={city ? city : ""}
             onChange={(e) => setCity(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
         <Form.Group cntrolid="postalCode">
-          <Form.Label>Postal code</Form.Label>
+          <Form.Label>Индекс</Form.Label>
           <Form.Control
             required
             type="text"
-            placeholder="Enter postal code"
+            placeholder="Индекс"
             value={postalCode ? postalCode : ""}
             onChange={(e) => setPostalCode(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
         <Form.Group cntrolid="country">
-          <Form.Label>Coutry</Form.Label>
+          <Form.Label>Страна</Form.Label>
           <Form.Control
             required
             type="text"
-            placeholder="Enter country"
+            placeholder="Страна"
             value={country ? country : ""}
             onChange={(e) => setCountry(e.target.value)}
           ></Form.Control>
@@ -79,7 +79,7 @@ function ShippingScreen() {
           variant="primary"
           onSubmit={submitHandler}
         >
-          Continue
+          Продолжить
         </Button>
       </Form>
       

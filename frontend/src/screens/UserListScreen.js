@@ -31,7 +31,7 @@ function UserListScreen() {
   }, [dispatch, navigate, successDelete, userInfo]);
 
   const deleteHandler = (id) => {
-    if(window.confirm('Are you sure you want to delete this user?')) {
+    if(window.confirm('Уверены, что нужно удалить пользователя?')) {
       dispatch(deleteUsers(id));
     }
     
@@ -39,7 +39,7 @@ function UserListScreen() {
 
   return (
     <div>
-      <h1>Users</h1>
+      <h1>Пользователи</h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -49,9 +49,9 @@ function UserListScreen() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>NAME</th>
+              <th>ИМЯ</th>
               <th>EMAIL</th>
-              <th>ADMIN</th>
+              <th>АДМИН</th>
               <th></th>
             </tr>
           </thead>
@@ -63,15 +63,15 @@ function UserListScreen() {
                 <td>{user.email}</td>
                 <td>
                   {user.isAdmin ? (
-                    <i class="fas fa-check" style={{ color: "green" }}></i>
+                    <i class="fa fa-check" style={{ color: "green" }}></i>
                   ) : (
-                    <i class="fas fa-times" style={{ color: "red" }}></i>
+                    <i class="fa fa-times" style={{ color: "red" }}></i>
                   )}
                 </td>
                 <td>
                   <Link to={`/admin/user/${user._id}/edit`}>
                     <Button variant="light" className="btn-sm">
-                      <i class="fas fa-edit" style={{ color: "green" }}></i>
+                      <i class="fa fa-edit" style={{ color: "green" }}></i>
                     </Button>
                   </Link>
 

@@ -31,7 +31,7 @@ function OrderListScreen() {
 
   return (
     <div>
-      <h1>Orders</h1>
+      <h1>Заказы</h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -41,11 +41,11 @@ function OrderListScreen() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>USER</th>
-              <th>DATE</th>
-              <th>TOTAL</th>
-              <th>PAID</th>
-              <th>DELIVERED</th>
+              <th>ПОЛЬЗОВАТЕЛЬ</th>
+              <th>ДАТА</th>
+              <th>СУММА</th>
+              <th>ОПЛАЧЕНО</th>
+              <th>ДОСТАВЛЕНО</th>
               <th></th>
             </tr>
           </thead>
@@ -73,7 +73,7 @@ function OrderListScreen() {
                 <td>
                   <Link to={`/orders/${order._id}`}>
                     <Button variant="light" className="btn-sm">
-                      Details
+                      Подробнее
                     </Button>
                   </Link>
 
