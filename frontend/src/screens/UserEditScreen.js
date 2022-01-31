@@ -8,8 +8,8 @@ import FormContainer from "../components/FormContainer";
 import { useParams } from "react-router";
 import { USER_UPDATE_RESET } from "../constants/userConstants";
 
-import { getUserDetails, register, updateUser } from "../actions/userActions";
-import { applyMiddleware } from "redux";
+import { getUserDetails, updateUser } from "../actions/userActions";
+
 
 function UserEditScreen() {
   const [name, setName] = useState("");

@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { listUsers, deleteUsers } from "../actions/userActions";
 
-import { register } from "../actions/userActions";
 
 function UserListScreen() {
   const dispatch = useDispatch();
-  const location = useLocation();
+
   const navigate = useNavigate();
 
   const userList = useSelector((state) => state.userList);

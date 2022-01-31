@@ -23,10 +23,10 @@ import os
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9oc6c+fiip#crt#r$)k=d!w2kp1b52-f027z@gl-&tcwevp@h6'
+SECRET_KEY = os.environ.get('JANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'proshop-preproduction-demo.herokuapp.com']
 
@@ -214,10 +214,11 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 AWS_QUERYSTRING_AUTH = False
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#AWS_S3_ACCESS_KEY_ID = os.environ.get('AWS_S3_ACCESS_KEY_ID')
-AWS_S3_ACCESS_KEY_ID = 'AKIA2H3PXGEYM56F2PDZ'
-#AWS_S3_SECRET_ACCESS_KEY =  os.environ.get('AWS_S3_SECRET_ACCESS_KEY')
-AWS_S3_SECRET_ACCESS_KEY = '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'
+AWS_S3_ACCESS_KEY_ID = os.environ.get('AWS_S3_ACCESS_KEY_ID')
+
+AWS_S3_SECRET_ACCESS_KEY =  os.environ.get('AWS_S3_SECRET_ACCESS_KEY')
+
+
 AWS_DEFAULT_REGION = 'eu-central-1'
 AWS_STORAGE_BUCKET_NAME = 'proshop-bucket-for-static-asstets'
 
